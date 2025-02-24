@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "concurrently \"npm run dev:client\" \"npm run dev:server\"",
-    "dev:client": "cd client && npm run dev",  // For the client side
-    "dev:server": "cd server && npm run dev"   // For the server side
+    "dev:client": "cd client && npm run dev",
+    "dev:server": "cd server && npm run dev"
   },
   "devDependencies": {
     "concurrently": "^6.0.0"
