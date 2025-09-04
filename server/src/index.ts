@@ -36,7 +36,12 @@ app.use("/teams", teamRoutes);
 /* SERVER */
 console.log('🚀 project-management app started at:', new Date().toISOString());
 
+app.get('/test', (req, res) => {
+  res.send('Test route is working!');
+});
+
 const port = Number(process.env.PORT) || 3000;
 app.listen(port, "0.0.0.0", () => {
   console.log(`Server running on port ${port}`);
 });
+
