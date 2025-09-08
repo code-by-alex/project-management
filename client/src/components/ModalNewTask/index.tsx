@@ -1,7 +1,8 @@
 import Modal from "@/components/Modal";
-import { Priority, Status, useCreateTaskMutation } from "@/state/api";
+import { Priority, Status, useCreateTaskMutation, useGetAuthUserQuery } from "@/state/api";
 import React, { useState } from "react";
 import { formatISO } from "date-fns";
+
 
 type Props = {
   isOpen: boolean;
@@ -11,6 +12,7 @@ type Props = {
 
 const ModalNewTask = ({ isOpen, onClose, id = null }: Props) => {
   const [createTask, { isLoading }] = useCreateTaskMutation();
+  const { data: authData } = useGetAuthUserQuery();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [status, setStatus] = useState<Status>(Status.ToDo);
