@@ -12,7 +12,7 @@ type Props = {
 
 const ModalNewTask = ({ isOpen, onClose, id = null }: Props) => {
   const [createTask, { isLoading }] = useCreateTaskMutation();
-  const { data: authData } = useGetAuthUserQuery();
+  const { data: authData } = useGetAuthUserQuery(undefined);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [status, setStatus] = useState<Status>(Status.ToDo);
