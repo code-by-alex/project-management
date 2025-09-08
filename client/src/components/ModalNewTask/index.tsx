@@ -1,11 +1,5 @@
-"use client";
 import Modal from "@/components/Modal";
-import {
-  Priority,
-  Status,
-  useCreateTaskMutation,
-  useGetAuthUserQuery,
-} from "@/state/api";
+import { Priority, Status, useCreateTaskMutation } from "@/state/api";
 import React, { useState } from "react";
 import { formatISO } from "date-fns";
 
@@ -17,8 +11,6 @@ type Props = {
 
 const ModalNewTask = ({ isOpen, onClose, id = null }: Props) => {
   const [createTask, { isLoading }] = useCreateTaskMutation();
-  const { data: authUserData, isLoading: isAuthLoading } = useGetAuthUserQuery();
-
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [status, setStatus] = useState<Status>(Status.ToDo);
@@ -26,10 +18,9 @@ const ModalNewTask = ({ isOpen, onClose, id = null }: Props) => {
   const [tags, setTags] = useState("");
   const [startDate, setStartDate] = useState("");
   const [dueDate, setDueDate] = useState("");
+  const [authorUserId, setAuthorUserId] = useState("");
   const [assignedUserId, setAssignedUserId] = useState("");
   const [projectId, setProjectId] = useState("");
-
-  const authorUserId = authUserData?.userDetails?.userId;
 
   const handleSubmit = async () => {
     if (!title || !authorUserId || !(id !== null || projectId)) return;
@@ -49,26 +40,14 @@ const ModalNewTask = ({ isOpen, onClose, id = null }: Props) => {
       tags,
       startDate: formattedStartDate,
       dueDate: formattedDueDate,
-      authorUserId,
-      assignedUserId: assignedUserId ? parseInt(assignedUserId) : undefined,
+      authorUserId: parseInt(authorUserId),
+      assignedUserId: parseInt(assignedUserId),
       projectId: id !== null ? Number(id) : Number(projectId),
     });
-
-    // Optionally reset form & close modal
-    setTitle("");
-    setDescription("");
-    setStatus(Status.ToDo);
-    setPriority(Priority.Backlog);
-    setTags("");
-    setStartDate("");
-    setDueDate("");
-    setAssignedUserId("");
-    setProjectId("");
-    onClose();
   };
 
   const isFormValid = () => {
-    return title && authorUserId && (id !== null || projectId);
+    return title && authorUserId && !(id !== null || projectId);
   };
 
   const selectStyles =
@@ -76,8 +55,6 @@ const ModalNewTask = ({ isOpen, onClose, id = null }: Props) => {
 
   const inputStyles =
     "w-full rounded border border-gray-300 p-2 shadow-sm dark:border-dark-tertiary dark:bg-dark-tertiary dark:text-white dark:focus:outline-none";
-
-  if (isAuthLoading) return null;
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} name="Create New Task">
@@ -137,6 +114,7 @@ const ModalNewTask = ({ isOpen, onClose, id = null }: Props) => {
           value={tags}
           onChange={(e) => setTags(e.target.value)}
         />
+
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-2">
           <input
             type="date"
@@ -154,7 +132,14 @@ const ModalNewTask = ({ isOpen, onClose, id = null }: Props) => {
         <input
           type="text"
           className={inputStyles}
-          placeholder="Assigned User ID (optional)"
+          placeholder="Author User ID"
+          value={authorUserId}
+          onChange={(e) => setAuthorUserId(e.target.value)}
+        />
+        <input
+          type="text"
+          className={inputStyles}
+          placeholder="Assigned User ID"
           value={assignedUserId}
           onChange={(e) => setAssignedUserId(e.target.value)}
         />
@@ -162,7 +147,7 @@ const ModalNewTask = ({ isOpen, onClose, id = null }: Props) => {
           <input
             type="text"
             className={inputStyles}
-            placeholder="Project ID"
+            placeholder="ProjectId"
             value={projectId}
             onChange={(e) => setProjectId(e.target.value)}
           />
