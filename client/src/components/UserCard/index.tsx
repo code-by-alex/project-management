@@ -21,7 +21,7 @@ const UserCard = ({ user }: Props) => {
       <div>
         <h3>{user.username}</h3>
         <p>{user.email}</p>
-        <p>User ID: {user.id}</p> 
+        <p>User ID: {user.userId}</p> 
       </div>
     </div>
   );
