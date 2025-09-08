@@ -23,7 +23,9 @@ const ModalNewTask = ({ isOpen, onClose, id = null }: Props) => {
   const [projectId, setProjectId] = useState("");
 
   const handleSubmit = async () => {
-    if (!title || !authorUserId || !(id !== null || projectId)) return;
+    if (!title || !(id !== null || projectId)) return;
+
+    //if (!title || !authorUserId || !(id !== null || projectId)) return;
 
     const formattedStartDate = formatISO(new Date(startDate), {
       representation: "complete",
@@ -40,15 +42,23 @@ const ModalNewTask = ({ isOpen, onClose, id = null }: Props) => {
       tags,
       startDate: formattedStartDate,
       dueDate: formattedDueDate,
-      authorUserId: parseInt(authorUserId),
-      assignedUserId: parseInt(assignedUserId),
+      //authorUserId: parseInt(authorUserId),
+      assignedUserId: assignedUserId: assignedUserId ? parseInt(assignedUserId) : undefined,
       projectId: id !== null ? Number(id) : Number(projectId),
     });
   };
 
   const isFormValid = () => {
+  // title is required
+  // projectId is required only if id is null
+    return title.trim() !== "" && (id !== null || projectId.trim() !== "");
+  };
+
+  {/*
+  const isFormValid = () => {
     return title && authorUserId && !(id !== null || projectId);
   };
+  */}
 
   const selectStyles =
     "mb-4 block w-full rounded border border-gray-300 px-3 py-2 dark:border-dark-tertiary dark:bg-dark-tertiary dark:text-white dark:focus:outline-none";
