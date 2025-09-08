@@ -19,7 +19,7 @@ const ModalNewTask = ({ isOpen, onClose, id = null }: Props) => {
   const [startDate, setStartDate] = useState("");
   const [dueDate, setDueDate] = useState("");
   //const [authorUserId, setAuthorUserId] = useState("");
-  const [assignedUserId, setAssignedUserId] = useState("");
+  //const [assignedUserId, setAssignedUserId] = useState("");
   const [projectId, setProjectId] = useState("");
 
   const handleSubmit = async () => {
@@ -34,6 +34,7 @@ const ModalNewTask = ({ isOpen, onClose, id = null }: Props) => {
       representation: "complete",
     });
 
+   
     await createTask({
       title,
       description,
@@ -43,7 +44,8 @@ const ModalNewTask = ({ isOpen, onClose, id = null }: Props) => {
       startDate: formattedStartDate,
       dueDate: formattedDueDate,
       //authorUserId: parseInt(authorUserId),
-      assignedUserId: assignedUserId ? parseInt(assignedUserId) : undefined,
+      //assignedUserId: assignedUserId ? parseInt(assignedUserId) : undefined,
+      assignedUserId: authData?.userDetails?.userId,
       projectId: id !== null ? Number(id) : Number(projectId),
     });
   };
@@ -147,7 +149,6 @@ const ModalNewTask = ({ isOpen, onClose, id = null }: Props) => {
           value={authorUserId}
           onChange={(e) => setAuthorUserId(e.target.value)}
         />
-        */}
         <input
           type="text"
           className={inputStyles}
@@ -155,6 +156,7 @@ const ModalNewTask = ({ isOpen, onClose, id = null }: Props) => {
           value={assignedUserId}
           onChange={(e) => setAssignedUserId(e.target.value)}
         />
+        */}
         {id === null && (
           <input
             type="text"
