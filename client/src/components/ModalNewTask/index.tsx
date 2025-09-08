@@ -18,7 +18,7 @@ const ModalNewTask = ({ isOpen, onClose, id = null }: Props) => {
   const [tags, setTags] = useState("");
   const [startDate, setStartDate] = useState("");
   const [dueDate, setDueDate] = useState("");
-  const [authorUserId, setAuthorUserId] = useState("");
+  //const [authorUserId, setAuthorUserId] = useState("");
   const [assignedUserId, setAssignedUserId] = useState("");
   const [projectId, setProjectId] = useState("");
 
@@ -129,6 +129,7 @@ const ModalNewTask = ({ isOpen, onClose, id = null }: Props) => {
             onChange={(e) => setDueDate(e.target.value)}
           />
         </div>
+        {/*
         <input
           type="text"
           className={inputStyles}
@@ -136,6 +137,7 @@ const ModalNewTask = ({ isOpen, onClose, id = null }: Props) => {
           value={authorUserId}
           onChange={(e) => setAuthorUserId(e.target.value)}
         />
+        */}
         <input
           type="text"
           className={inputStyles}
