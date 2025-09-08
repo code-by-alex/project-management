@@ -25,6 +25,7 @@ const ModalNewTask = ({ isOpen, onClose, id = null }: Props) => {
   const [projectId, setProjectId] = useState("");
 
   const handleSubmit = async () => {
+    console.log("Submitting task...");
     if (!title || !(id !== null || projectId)) return;
 
     //if (!title || !authorUserId || !(id !== null || projectId)) return;
@@ -50,6 +51,8 @@ const ModalNewTask = ({ isOpen, onClose, id = null }: Props) => {
       assignedUserId: authData?.userDetails?.userId,
       projectId: id !== null ? Number(id) : Number(projectId),
     });
+
+    console.log("Task created!");
   };
 
   const isFormValid = () => {
