@@ -26,7 +26,10 @@ const ModalNewTask = ({ isOpen, onClose, id = null }: Props) => {
 
   const handleSubmit = async () => {
     console.log("Submitting task...");
-    if (!title || !(id !== null || projectId)) return;
+    if (!title || !(id !== null || projectId)) {
+      console.warn("Validation failed");
+      return;
+    }
 
     //if (!title || !authorUserId || !(id !== null || projectId)) return;
 
