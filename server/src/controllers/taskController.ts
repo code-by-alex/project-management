@@ -39,8 +39,8 @@ export const createTask = async (
     dueDate,
     points,
     projectId,
-    authorUserId,
-    assignedUserId,
+    //authorUserId,
+    //assignedUserId,
   } = req.body;
   try {
     const newTask = await prisma.task.create({
@@ -54,8 +54,8 @@ export const createTask = async (
         dueDate,
         points,
         projectId,
-        authorUserId,
-        assignedUserId,
+        //authorUserId,
+        //assignedUserId,
       },
     });
     res.status(201).json(newTask);
